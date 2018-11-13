@@ -40,14 +40,12 @@ def get_mood_snaps(list):
             try:
                 if snapshot["responses"][0]["questionPrompt"] == "How are you feeling? (Affect)":
                     date = snapshot["date"]
-                    mood_val = snapshot["responses"][0]["answeredOptions"][0][2]
-                    mood_val_2 = snapshot["responses"][0]["answeredOptions"][0][1]
+                    mood_val = snapshot["responses"][0]["answeredOptions"][0][1]
+                    print(mood_val)
                     if is_number(mood_val):
                         dates.append(date)
                         values.append(mood_val)
-                    if is_number(mood_val_2):
-                        dates.append(date)
-                        values.append(mood_val_2)
+
             except KeyError:
                 print("Element doesn't have selected prompt, skipping")
 
@@ -111,11 +109,13 @@ def plot_datetime(x, y):
 
     #plt.plot(dates, values)
     plt.plot_date(mdates.date2num(x), y, linestyle = "-", markersize = "0.1")
+
     plt.ylabel("Mood")
     plt.ylim(0, 10)
-    plt.xticks(rotation="vertical")
 
+    plt.xticks(fontsize="x-small", rotation=30)
     plt.xlabel("Time")
+    plt.subplots_adjust(bottom=0.2)
 
 plot_datetime(dates_datetime, values_running_avg)
 
